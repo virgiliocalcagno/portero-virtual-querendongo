@@ -1,12 +1,32 @@
 {
-  "geo_required": true,
+  "geo_required": false,
   "building_lat": "18.456789",
   "building_lng": "-69.123456",
   "allow_radius_m": 30,
   "apartamentos": [
-    { "name": "Apto 101", "active": true, "phone": "18092585009", "jitsi": "https://meet.jit.si/porteroApto101" },
-    { "name": "Apto 102", "active": true, "phone": "18092585009", "jitsi": "https://meet.jit.si/porteroApto102" },
-    { "name": "Apto 103", "active": true, "phone": "18092585009", "jitsi": "https://meet.jit.si/porteroApto103" },
-    { "name": "Apto 104", "active": true, "phone": "18092585009", "jitsi": "https://meet.jit.si/porteroApto104" }
+    {
+      "name": "Apto 101",
+      "active": true,
+      "phone": "18092585009",
+      "jitsi": "https://meet.jit.si/porteroApto101"
+    },
+    {
+      "name": "Apto 102",
+      "active": true,
+      "phone": "18092585009",
+      "jitsi": "https://meet.jit.si/porteroApto102"
+    },
+    {
+      "name": "Apto 103",
+      "active": true,
+      "phone": "18092585009",
+      "jitsi": "https://meet.jit.si/porteroApto103"
+    },
+    {
+      "name": "Apto 104",
+      "active": true,
+      "phone": "18092585009",
+      "jitsi": "https://meet.jit.si/porteroApto104"
+    }
   ]
 }
