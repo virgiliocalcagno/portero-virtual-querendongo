@@ -24,12 +24,12 @@
       padding: 2rem;
       max-width: 500px;
       width: 100%;
+      text-align: center;
     }
     h1 {
       font-size: 1.8rem;
       color: #1e1e1e;
       margin-bottom: 1.5rem;
-      text-align: center;
     }
     .apt-button {
       display: block;
@@ -41,106 +41,37 @@
       font-size: 1rem;
       margin: 1rem 0;
       text-decoration: none;
-      text-align: center;
       transition: background 0.3s;
     }
     .apt-button:hover {
       background: #444;
     }
-    .note, .admin-note {
+    .note {
       margin-top: 2rem;
       font-size: 0.9rem;
       color: #777;
-      text-align: center;
-    }
-    .admin-list {
-      list-style: none;
-      padding: 0;
-    }
-    .admin-list li {
-      margin: 0.5rem 0;
-    }
-    label {
-      font-size: 1rem;
-      color: #333;
-      display: block;
-      margin-bottom: 0.5rem;
-    }
-    .switch {
-      position: relative;
-      display: inline-block;
-      width: 50px;
-      height: 24px;
-      margin-left: 0.5rem;
-    }
-    .switch input {
-      opacity: 0;
-      width: 0;
-      height: 0;
-    }
-    .slider {
-      position: absolute;
-      cursor: pointer;
-      top: 0;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      background-color: #ccc;
-      transition: .4s;
-      border-radius: 24px;
-    }
-    .slider:before {
-      position: absolute;
-      content: "";
-      height: 18px;
-      width: 18px;
-      left: 3px;
-      bottom: 3px;
-      background-color: white;
-      transition: .4s;
-      border-radius: 50%;
-    }
-    input:checked + .slider {
-      background-color: #1e1e1e;
-    }
-    input:checked + .slider:before {
-      transform: translateX(26px);
-    }
-    .admin-link {
-      text-align: center;
-      margin-top: 1rem;
-      font-size: 0.8rem;
     }
   </style>
 </head>
 <body>
-  <div class="container" id="app"></div>
+  <div class="container" id="app">
+    <h1>Cargando configuración...</h1>
+  </div>
   <script>
-    const ADMIN_PASSWORD = "g44$2262ccna";
-    const defaultConfig = {
-      gpsEnabled: false,
-      apartments: [
-        { name: 'Apto 101', active: true, phone: '18092585009', jitsi: 'https://meet.jit.si/porteroApto101' },
-        { name: 'Apto 102', active: true, phone: '18092585009', jitsi: 'https://meet.jit.si/porteroApto102' },
-        { name: 'Apto 103', active: true, phone: '18092585009', jitsi: 'https://meet.jit.si/porteroApto103' },
-        { name: 'Apto 104', active: true, phone: '18092585009', jitsi: 'https://meet.jit.si/porteroApto104' }
-      ]
-    };
-
-    function getConfig() {
-      try { return JSON.parse(localStorage.getItem('porteroConfig')) || defaultConfig; }
-      catch { return defaultConfig; }
+    async function loadConfig() {
+      try {
+        const res = await fetch('/config.json');
+        if (!res.ok) throw new Error('Error al cargar config');
+        return await res.json();
+      } catch (e) {
+        console.error(e);
+        return null;
+      }
     }
-
-    function saveConfig(cfg) {
-      localStorage.setItem('porteroConfig', JSON.stringify(cfg));
-    }
-
-    function renderVisitor() {
-      const cfg = getConfig();
+    function renderVisitor(cfg) {
       const app = document.getElementById('app');
       app.innerHTML = '<h1>Residencial Querendongo 1</h1>';
-      cfg.apartments.forEach((apt) => {
+      cfg.apartamentos.forEach(apt => {
         if (!apt.active) return;
         const a = document.createElement('a');
         a.className = 'apt-button';
@@ -153,99 +84,15 @@
       note.className = 'note';
       note.textContent = 'Este sistema es solo para visitas en persona. No compartir el enlace.';
       app.appendChild(note);
-      const adminLink = document.createElement('p');
-      adminLink.className = 'admin-link';
-      adminLink.innerHTML = '¿Panel de administración? <a href="#admin">Acceder</a>';
-      app.appendChild(adminLink);
     }
-
-    function renderAdmin() {
-      const cfg = getConfig();
-      const app = document.getElementById('app');
-      app.innerHTML = '<h1>Admin – Residencial Querendongo 1</h1>';
-      const gpsLabel = document.createElement('label');
-      gpsLabel.textContent = 'Validación GPS:';
-      const gpsSwitch = document.createElement('label');
-      gpsSwitch.className = 'switch';
-      const gpsInput = document.createElement('input');
-      gpsInput.type = 'checkbox';
-      gpsInput.checked = cfg.gpsEnabled;
-      const gpsSlider = document.createElement('span');
-      gpsSlider.className = 'slider';
-      gpsSwitch.appendChild(gpsInput);
-      gpsSwitch.appendChild(gpsSlider);
-      gpsLabel.appendChild(gpsSwitch);
-      app.appendChild(gpsLabel);
-      gpsInput.addEventListener('change', () => {
-        cfg.gpsEnabled = gpsInput.checked;
-        saveConfig(cfg);
-        alert('GPS ' + (cfg.gpsEnabled ? 'activado' : 'desactivado'));
-      });
-
-      const ul = document.createElement('ul');
-      ul.className = 'admin-list';
-      cfg.apartments.forEach((apt, i) => {
-        const li = document.createElement('li');
-        const cb = document.createElement('input');
-        cb.type = 'checkbox';
-        cb.checked = apt.active;
-        cb.addEventListener('change', () => {
-          cfg.apartments[i].active = cb.checked;
-          saveConfig(cfg);
-        });
-
-        const nm = document.createElement('span');
-        nm.textContent = ` ${apt.name} `;
-
-        const phoneInput = document.createElement('input');
-        phoneInput.value = apt.phone;
-        phoneInput.style.width = '100%';
-        phoneInput.addEventListener('change', () => {
-          cfg.apartments[i].phone = phoneInput.value.trim();
-          saveConfig(cfg);
-        });
-
-        const jitsiInput = document.createElement('input');
-        jitsiInput.value = apt.jitsi;
-        jitsiInput.style.width = '100%';
-        jitsiInput.addEventListener('change', () => {
-          cfg.apartments[i].jitsi = jitsiInput.value.trim();
-          saveConfig(cfg);
-        });
-
-        li.append(cb, nm, phoneInput, jitsiInput);
-        ul.appendChild(li);
-      });
-      app.appendChild(ul);
-
-      const adminNote = document.createElement('p');
-      adminNote.className = 'admin-note';
-      adminNote.textContent = 'Los cambios se guardan automáticamente en tu navegador.';
-      app.appendChild(adminNote);
-
-      const visitorLink = document.createElement('p');
-      visitorLink.className = 'admin-link';
-      visitorLink.innerHTML = '¿Volver a vista visitante? <a href="#">Click aquí</a>';
-      app.appendChild(visitorLink);
-    }
-
-    function navigate() {
-      if (window.location.hash === '#admin') {
-        const pwd = prompt('Ingrese contraseña de administrador');
-        if (pwd === ADMIN_PASSWORD) {
-          renderAdmin();
-        } else {
-          alert('Contraseña incorrecta');
-          location.hash = '';
-          renderVisitor();
-        }
+    document.addEventListener('DOMContentLoaded', async () => {
+      const cfg = await loadConfig();
+      if (cfg) {
+        renderVisitor(cfg);
       } else {
-        renderVisitor();
+        document.getElementById('app').innerHTML = '<h1>Error cargando configuración</h1>';
       }
-    }
-
-    window.addEventListener('hashchange', navigate);
-    document.addEventListener('DOMContentLoaded', navigate);
+    });
   </script>
 </body>
 </html>
