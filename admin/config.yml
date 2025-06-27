@@ -1,0 +1,23 @@
+backend:
+  name: git-gateway
+  branch: main
+
+media_folder: "uploads"
+public_folder: "/uploads"
+
+collections:
+  - name: "porteroConfig"
+    label: "Configuración Portero"
+    files:
+      - file: "config.json"
+        name: "settings"
+        label: "Datos de la Configuración"
+        format: "json"
+        fields:
+          - { label: "Apartamentos", name: "apartamentos", widget: "list", fields: [
+                { label: "Nombre", name: "name", widget: "string" },
+                { label: "Activo", name: "active", widget: "boolean" },
+                { label: "Teléfono (código país+número)", name: "phone", widget: "string" },
+                { label: "Enlace Jitsi", name: "jitsi", widget: "string" }
+            ]
+          }
