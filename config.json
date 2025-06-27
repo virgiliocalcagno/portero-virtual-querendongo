@@ -18,13 +18,13 @@
     },
     {
       "name": "Apto 103",
-      "active": true,
+      "active": false,
       "phone": "18092585009",
       "jitsi": "https://meet.jit.si/porteroApto103"
     },
     {
       "name": "Apto 104",
-      "active": true,
+      "active": false,
       "phone": "18092585009",
       "jitsi": "https://meet.jit.si/porteroApto104"
     }
