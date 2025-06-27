@@ -2,7 +2,7 @@
   "geo_required": true,
   "building_lat": "18.47539",
   "building_lng": "-69.88475",
-  "allow_radius_m": 30,
+  "allow_radius_m": 50,
   "apartamentos": [
     {
       "name": "Apto 101",
