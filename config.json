@@ -9,7 +9,7 @@
     {
       "name": "Apto 102",
       "active": true,
-      "phone": "19417992044",
+      "phone": "18092585009",
       "jitsi": "https://meet.jit.si/porteroApto102"
     },
     {
@@ -20,15 +20,9 @@
     },
     {
       "name": "Apto 104",
-      "active": false,
+      "active": true,
       "phone": "18092585009",
       "jitsi": "https://meet.jit.si/porteroApto104"
-    },
-    {
-      "name": "Micasa",
-      "active": true,
-      "phone": "19417992044",
-      "jitsi": "https://meet.jit.si/Micasa"
     }
   ]
 }
