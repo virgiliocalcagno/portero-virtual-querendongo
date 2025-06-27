@@ -8,7 +8,7 @@
     },
     {
       "name": "Apto 102",
-      "active": false,
+      "active": true,
       "phone": "19417992044",
       "jitsi": "https://meet.jit.si/porteroApto102"
     },
