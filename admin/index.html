@@ -1,62 +1,19 @@
 <!DOCTYPE html>
 <html lang="es">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>Residencial Querendongo 1</title>
-  <style>
-    body { margin: 0; font-family: 'Segoe UI', sans-serif; background: url('https://source.unsplash.com/1600x900/?building') no-repeat center center fixed; background-size: cover; color: #333; display: flex; align-items: flex-start; justify-content: center; min-height: 100vh; padding: 2rem; }
-    .container { background: rgba(255,255,255,0.9); border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); padding: 2rem; max-width:500px; width:100%; text-align:center; }
-    h1 { font-size:1.8rem; color:#1e1e1e; margin-bottom:1.5rem; }
-    .apt-button { display:block; background:#1e1e1e; color:white; border:none; border-radius:12px; padding:1rem; font-size:1rem; margin:1rem 0; text-decoration:none; transition:background 0.3s; }
-    .apt-button:hover { background:#444; }
-    .note { margin-top:2rem; font-size:0.9rem; color:#777; }
-  </style>
+  <meta charset="UTF-8">
+  <title>Netlify CMS</title>
+  <!-- 1) Estilos de Leaflet (para mapa) -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet/dist/leaflet.css" />
+  <!-- 2) Biblioteca Leaflet -->
+  <script src="https://unpkg.com/leaflet/dist/leaflet.js"></script>
+  <!-- 3) Plugin geolocation -->
+  <script src="https://unpkg.com/netlify-cms-widget-geolocation/dist/index.js"></script>
+  <!-- 4) Netlify Identity -->
+  <script src="https://identity.netlify.com/v1/netlify-identity-widget.js"></script>
 </head>
 <body>
-  <div class="container" id="app"><h1>Cargando configuración...</h1></div>
-  <script>
-    async function loadConfig() {
-      try { const res = await fetch('/config.json'); if(!res.ok) throw ''; return await res.json(); } catch { return null; }
-    }
-    function toRad(d) { return d * Math.PI / 180; }
-    function getDistance(lat1,lon1,lat2,lon2) {
-      const R=6371000, dLat=toRad(lat2-lat1), dLon=toRad(lon2-lon1);
-      const a=Math.sin(dLat/2)**2 + Math.cos(toRad(lat1))*Math.cos(toRad(lat2))*Math.sin(dLon/2)**2;
-      return R*2*Math.atan2(Math.sqrt(a),Math.sqrt(1-a));
-    }
-    function renderVisitor(list) {
-      const app=document.getElementById('app');
-      app.innerHTML='<h1>Residencial Querendongo 1</h1>';
-      list.forEach(apt => {
-        if(!apt.active) return;
-        const a=document.createElement('a');
-        a.className='apt-button';
-        a.target='_blank';
-        a.href=`https://wa.me/${apt.phone}?text=${encodeURIComponent('Hola, estoy en la entrada del edificio. Videollamada: '+apt.jitsi)}`;
-        a.textContent=`📞 ${apt.name}`;
-        app.appendChild(a);
-      });
-      const note=document.createElement('p');
-      note.className='note';
-      note.textContent='Este sistema es solo para visitas en persona. No compartir el enlace.';
-      app.appendChild(note);
-    }
-    function renderOutOfZone(msg) {
-      document.getElementById('app').innerHTML=`<h1>${msg.title}</h1><p class="note">${msg.text}</p>`;
-    }
-    document.addEventListener('DOMContentLoaded', async () => {
-      const cfg = await loadConfig();
-      if (!cfg) { renderOutOfZone({ title: 'Error', text: 'No se pudo cargar la configuración.' }); return; }
-      const { location, allow_radius_m, geo_required, apartamentos } = cfg;
-      const lat = location.lat, lng = location.lng;
-      if (!geo_required) { renderVisitor(apartamentos); return; }
-      if (!navigator.geolocation) { renderOutOfZone({ title: 'Sin ubicación', text: 'Tu navegador no soporta geolocalización.' }); return; }
-      navigator.geolocation.getCurrentPosition(pos => {
-        const dist = getDistance(pos.coords.latitude, pos.coords.longitude, lat, lng);
-        dist <= allow_radius_m ? renderVisitor(apartamentos) : renderOutOfZone({ title: 'Fuera de zona', text: 'Debes estar frente al edificio para usar el portero virtual.' });
-      }, () => renderOutOfZone({ title: 'Ubicación denegada', text: 'Permite la ubicación para usar el portero virtual.' }));
-    });
-  </script>
+  <!-- 5) Netlify CMS -->
+  <script src="https://unpkg.com/netlify-cms@^2.0.0/dist/netlify-cms.js"></script>
 </body>
 </html>
