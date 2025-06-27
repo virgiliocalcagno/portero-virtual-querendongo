@@ -1,5 +1,5 @@
 {
-  "geo_required": true,
+  "geo_required": false,
   "location": {
     "lat": 18.456789,
     "lng": -69.123456
