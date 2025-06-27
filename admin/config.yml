@@ -30,7 +30,7 @@ collections:
             name: "apartamentos"
             widget: "list"
             fields:
-              - { label: "Nombre",   name: "name",   widget: "string" }
-              - { label: "Activo",   name: "active", widget: "boolean" }
-              - { label: "Teléfono", name: "phone",  widget: "string" }
-              - { label: "Jitsi",    name: "jitsi",  widget: "string" }
+              - { label: "Nombre", name: "name", widget: "string" }
+              - { label: "Activo", name: "active", widget: "boolean" }
+              - { label: "Teléfono", name: "phone", widget: "string" }
+              - { label: "Jitsi", name: "jitsi", widget: "string" }
