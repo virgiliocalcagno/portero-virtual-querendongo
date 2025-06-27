@@ -1,10 +1,10 @@
 {
-  "geo_required": true,
+  "geo_required": false,
   "location": {
     "lat": 18.456789,
     "lng": -69.123456
   },
-  "allow_radius_m": 30,
+  "allow_radius_m": 26,
   "apartamentos": [
     {
       "name": "Apto 101",
