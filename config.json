@@ -1,4 +1,10 @@
 {
+  "geo_required": true,
+  "location": {
+    "lat": 18.456789,
+    "lng": -69.123456
+  },
+  "allow_radius_m": 30,
   "apartamentos": [
     {
       "name": "Apto 101",
@@ -9,7 +15,7 @@
     {
       "name": "Apto 102",
       "active": true,
-      "phone": "19417992044",
+      "phone": "18092585009",
       "jitsi": "https://meet.jit.si/porteroApto102"
     },
     {
@@ -20,15 +26,9 @@
     },
     {
       "name": "Apto 104",
-      "active": false,
+      "active": true,
       "phone": "18092585009",
       "jitsi": "https://meet.jit.si/porteroApto104"
-    },
-    {
-      "name": "micasa",
-      "active": true,
-      "phone": "19417992044",
-      "jitsi": "https://meet.jit.si/micasa"
     }
   ]
 }

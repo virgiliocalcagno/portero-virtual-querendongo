@@ -14,10 +14,23 @@ collections:
         label: "Datos de la Configuración"
         format: "json"
         fields:
-          - { label: "Apartamentos", name: "apartamentos", widget: "list", fields: [
-                { label: "Nombre", name: "name", widget: "string" },
-                { label: "Activo", name: "active", widget: "boolean" },
-                { label: "Teléfono (código país+número)", name: "phone", widget: "string" },
-                { label: "Enlace Jitsi", name: "jitsi", widget: "string" }
-            ]
-          }
+          - label: "GPS requerido"
+            name: "geo_required"
+            widget: "boolean"
+            default: true
+          - label: "Ubicación del Edificio"
+            name: "location"
+            widget: "geolocation"
+            hint: "Haz clic en el mapa para ajustar la posición exacta"
+          - label: "Radio permitido (m)"
+            name: "allow_radius_m"
+            widget: "number"
+            default: 30
+          - label: "Apartamentos"
+            name: "apartamentos"
+            widget: "list"
+            fields:
+              - { label: "Nombre",   name: "name",   widget: "string" }
+              - { label: "Activo",   name: "active", widget: "boolean" }
+              - { label: "Teléfono", name: "phone",  widget: "string" }
+              - { label: "Jitsi",    name: "jitsi",  widget: "string" }

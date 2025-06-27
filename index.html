@@ -68,10 +68,23 @@
         return null;
       }
     }
-    function renderVisitor(cfg) {
+    function toRad(deg) {
+      return deg * Math.PI / 180;
+    }
+    function getDistance(lat1, lon1, lat2, lon2) {
+      const R = 6371000;
+      const dLat = toRad(lat2 - lat1);
+      const dLon = toRad(lon2 - lon1);
+      const a = Math.sin(dLat/2) * Math.sin(dLat/2) +
+                Math.cos(toRad(lat1)) * Math.cos(toRad(lat2)) *
+                Math.sin(dLon/2) * Math.sin(dLon/2);
+      const c = 2 * Math.atan2(Math.sqrt(a), Math.sqrt(1-a));
+      return R * c;
+    }
+    function renderVisitor(apartamentos) {
       const app = document.getElementById('app');
       app.innerHTML = '<h1>Residencial Querendongo 1</h1>';
-      cfg.apartamentos.forEach(apt => {
+      apartamentos.forEach(apt => {
         if (!apt.active) return;
         const a = document.createElement('a');
         a.className = 'apt-button';
@@ -85,13 +98,43 @@
       note.textContent = 'Este sistema es solo para visitas en persona. No compartir el enlace.';
       app.appendChild(note);
     }
+    function renderOutOfZone(message) {
+      document.getElementById('app').innerHTML =
+        `<h1>${message.title}</h1><p class="note">${message.text}</p>`;
+    }
     document.addEventListener('DOMContentLoaded', async () => {
       const cfg = await loadConfig();
-      if (cfg) {
-        renderVisitor(cfg);
-      } else {
-        document.getElementById('app').innerHTML = '<h1>Error cargando configuración</h1>';
+      if (!cfg) {
+        renderOutOfZone({ title: 'Error', text: 'No se pudo cargar la configuración.' });
+        return;
       }
+      const { location, allow_radius_m, geo_required, apartamentos } = cfg;
+      const building_lat = location.lat;
+      const building_lng = location.lng;
+      if (!geo_required) {
+        renderVisitor(apartamentos);
+        return;
+      }
+      if (!navigator.geolocation) {
+        renderOutOfZone({ title: 'Sin ubicación', text: 'Tu navegador no soporta geolocalización.' });
+        return;
+      }
+      navigator.geolocation.getCurrentPosition(pos => {
+        const dist = getDistance(
+          pos.coords.latitude,
+          pos.coords.longitude,
+          building_lat,
+          building_lng
+        );
+        if (dist <= allow_radius_m) {
+          renderVisitor(apartamentos);
+        } else {
+          renderOutOfZone({ title: 'Fuera de zona', text: 'Debes estar frente al edificio para usar el portero virtual.' });
+        }
+      }, err => {
+        console.error(err);
+        renderOutOfZone({ title: 'Ubicación denegada', text: 'Permite la ubicación para usar el portero virtual.' });
+      });
     });
   </script>
 </body>
