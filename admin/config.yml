@@ -18,18 +18,14 @@ collections:
             default: true
           - label: "Latitud del edificio"
             name: "building_lat"
-            widget: "number"
-            default: 18.456789
-            min: -90
-            max: 90
-            step: 0.000001
+            widget: "string"
+            default: "18.456789"
+            hint: "Usa punto decimal, ej. 18.456789"
           - label: "Longitud del edificio"
             name: "building_lng"
-            widget: "number"
-            default: -69.123456
-            min: -180
-            max: 180
-            step: 0.000001
+            widget: "string"
+            default: "-69.123456"
+            hint: "Usa punto decimal y signo menos si aplica"
           - label: "Radio permitido (m)"
             name: "allow_radius_m"
             widget: "number"
