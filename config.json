@@ -1,0 +1,28 @@
+{
+  "apartamentos": [
+    {
+      "name": "Apto 101",
+      "active": true,
+      "phone": "18092585009",
+      "jitsi": "https://meet.jit.si/porteroApto101"
+    },
+    {
+      "name": "Apto 102",
+      "active": true,
+      "phone": "18092585009",
+      "jitsi": "https://meet.jit.si/porteroApto102"
+    },
+    {
+      "name": "Apto 103",
+      "active": true,
+      "phone": "18092585009",
+      "jitsi": "https://meet.jit.si/porteroApto103"
+    },
+    {
+      "name": "Apto 104",
+      "active": true,
+      "phone": "18092585009",
+      "jitsi": "https://meet.jit.si/porteroApto104"
+    }
+  ]
+}
