@@ -18,10 +18,14 @@ collections:
             name: "geo_required"
             widget: "boolean"
             default: true
-          - label: "Ubicación del Edificio"
-            name: "location"
-            widget: "geolocation"
-            hint: "Haz clic en el mapa para ajustar la posición exacta"
+          - label: "Latitud del edificio"
+            name: "building_lat"
+            widget: "number"
+            default: 18.456789
+          - label: "Longitud del edificio"
+            name: "building_lng"
+            widget: "number"
+            default: -69.123456
           - label: "Radio permitido (m)"
             name: "allow_radius_m"
             widget: "number"
