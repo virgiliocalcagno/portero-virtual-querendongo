@@ -5,19 +5,80 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Residencial Querendongo 1</title>
   <style>
-    body { margin: 0; font-family: 'Segoe UI', sans-serif; background: url('https://source.unsplash.com/1600x900/?building') no-repeat center center fixed; background-size: cover; color: #333; display: flex; align-items: flex-start; justify-content: center; min-height: 100vh; padding: 2rem; }
-    .container { background: rgba(255,255,255,0.9); border-radius:20px; box-shadow:0 10px 30px rgba(0,0,0,0.1); padding:2rem; max-width:500px; width:100%; text-align:center; }
-    h1 { font-size:1.8rem; color:#1e1e1e; margin-bottom:1.5rem; }
-    .apt-button { display:block; background:#1e1e1e; color:white; border:none; border-radius:12px; padding:1rem; font-size:1rem; margin:1rem 0; text-decoration:none; transition:background 0.3s; }
-    .apt-button:hover { background:#444; }
-    .note { margin-top:2rem; font-size:0.9rem; color:#777; }
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      /* Imagen profesional con tonos azul-gris */
+      background: url('https://images.unsplash.com/photo-1560347876-aeef00ee58a1?auto=format&fit=crop&w=1600&q=80') no-repeat center center fixed;
+      background-size: cover;
+      background-color: #2f3e4e;
+      background-blend-mode: overlay;
+      color: #fff;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      min-height: 100vh;
+      padding: 2rem;
+    }
+    .container {
+      background: rgba(255, 255, 255, 0.85);
+      border-radius: 20px;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+      padding: 2rem;
+      max-width: 500px;
+      width: 100%;
+      text-align: center;
+      color: #333;
+    }
+    h1 {
+      font-size: 1.8rem;
+      color: #1e1e1e;
+      margin-bottom: 1.5rem;
+    }
+    .apt-button {
+      display: block;
+      background: #1e1e1e;
+      color: white;
+      border: none;
+      border-radius: 12px;
+      padding: 1rem;
+      font-size: 1rem;
+      margin: 1rem 0;
+      text-decoration: none;
+      transition: background 0.3s;
+    }
+    .apt-button:hover {
+      background: #444;
+    }
+    .note {
+      margin-top: 2rem;
+      font-size: 0.9rem;
+      color: #777;
+    }
+    footer {
+      margin-top: auto;
+      padding: 1rem 0;
+      font-size: 0.8rem;
+      color: #ddd;
+      opacity: 0.8;
+    }
   </style>
 </head>
 <body>
-  <div class="container" id="app"><h1>Cargando configuración...</h1></div>
+  <div class="container" id="app">
+    <h1>Cargando configuración...</h1>
+  </div>
+  <footer>Desarrollado por Virgilio Calcagno</footer>
   <script>
     async function loadConfig() {
-      try { const res = await fetch('/config.json'); if (!res.ok) throw new Error('Error al cargar config'); return await res.json(); } catch { return null; }
+      try {
+        const res = await fetch('/config.json');
+        if (!res.ok) throw new Error('Error al cargar config');
+        return await res.json();
+      } catch {
+        return null;
+      }
     }
     function toRad(d) { return d * Math.PI / 180; }
     function getDistance(lat1, lon1, lat2, lon2) {
@@ -37,7 +98,8 @@
         a.textContent = `📞 ${apt.name}`;
         app.appendChild(a);
       });
-      const note = document.createElement('p'); note.className = 'note';
+      const note = document.createElement('p');
+      note.className = 'note';
       note.textContent = 'Este sistema es solo para visitas en persona. No compartir el enlace.';
       app.appendChild(note);
     }
@@ -55,7 +117,6 @@
       const building_lng = parseFloat(cfg.building_lng);
       const allow_radius_m = Number(cfg.allow_radius_m);
       const apartamentos = cfg.apartamentos;
-
       if (!geo_required) {
         renderVisitor(apartamentos);
         return;
