@@ -23,6 +23,12 @@
       "active": false,
       "phone": "18092585009",
       "jitsi": "https://meet.jit.si/porteroApto104"
+    },
+    {
+      "name": "Micasa",
+      "active": true,
+      "phone": "19417992044",
+      "jitsi": "https://meet.jit.si/Micasa"
     }
   ]
 }
