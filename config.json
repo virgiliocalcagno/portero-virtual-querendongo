@@ -6,7 +6,7 @@
   "apartamentos": [
     {
       "name": "Apto 101",
-      "active": true,
+      "active": false,
       "phone": "18092585009",
       "jitsi": "https://meet.jit.si/porteroApto101"
     },
