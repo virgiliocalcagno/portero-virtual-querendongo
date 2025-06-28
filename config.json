@@ -1,5 +1,5 @@
 {
-  "geo_required": false,
+  "geo_required": true,
   "building_lat": "18.456789",
   "building_lng": "-69.123456",
   "allow_radius_m": 30,
